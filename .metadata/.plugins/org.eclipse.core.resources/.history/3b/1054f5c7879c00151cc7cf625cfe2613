@@ -1,0 +1,196 @@
+package gc01.coursework;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+
+public class Screen {
+
+	private JFrame frame;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Screen window = new Screen();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public Screen() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		
+		Login loginScreen = new Login();
+		//PatientDetail detailScreen = new PatientDetail();
+		//NewPatient newPatientScreen = new NewPatient();
+		//Search searchScreen = new Search();
+		
+		frame = new JFrame();
+		frame.setBounds(100, 100, 800, 600);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frame.setTitle("Welcome to the Patient Registry System");
+		
+		JPanel info_bar = new JPanel();
+		info_bar.setBackground(new Color(255, 255, 255));
+		info_bar.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		frame.getContentPane().add(info_bar, BorderLayout.NORTH);
+		
+		Date now = new Date( );
+		GridBagLayout gbl_info_bar = new GridBagLayout();
+		gbl_info_bar.columnWidths = new int[]{229, 138, 199, 0, 0, 0, 0, 0};
+		gbl_info_bar.rowHeights = new int[]{16, 0};
+		gbl_info_bar.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_info_bar.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		info_bar.setLayout(gbl_info_bar);
+		
+		JLabel lblYouAreNot = new JLabel("You are not Logged in");
+		GridBagConstraints gbc_lblYouAreNot = new GridBagConstraints();
+		gbc_lblYouAreNot.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblYouAreNot.insets = new Insets(0, 0, 0, 5);
+		gbc_lblYouAreNot.gridx = 1;
+		gbc_lblYouAreNot.gridy = 0;
+		info_bar.add(lblYouAreNot, gbc_lblYouAreNot);
+		JLabel lbtime = new JLabel(""+ now);
+		GridBagConstraints gbc_lbtime = new GridBagConstraints();
+		gbc_lbtime.insets = new Insets(0, 0, 0, 5);
+		gbc_lbtime.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lbtime.gridx = 3;
+		gbc_lbtime.gridy = 0;
+		info_bar.add(lbtime, gbc_lbtime);
+		
+		JPanel navigation = new JPanel();
+		navigation.setBackground(new Color(255, 255, 255));
+		navigation.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		frame.getContentPane().add(navigation, BorderLayout.WEST);
+		GridBagLayout gbl_navigation = new GridBagLayout();
+		gbl_navigation.columnWidths = new int[]{83, 0};
+		gbl_navigation.rowHeights = new int[]{29, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_navigation.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_navigation.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		navigation.setLayout(gbl_navigation);
+		
+		JPanel display = new JPanel();
+		display.setBackground(new Color(255, 255, 204));
+		display.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		frame.getContentPane().add(display, BorderLayout.CENTER);
+		display.setLayout(null);
+		
+		JTextPane welcomeMessage = new JTextPane();
+		welcomeMessage.setBackground(new Color(255, 255, 204));
+		welcomeMessage.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		welcomeMessage.setText("Welcome to the Patient Registry System!\n\nPlease Login first by clicking on the Log In button on the navigation toor bar on the left.\n\nOnce you have logged in, you can click on the 'Patient Detail' to check and modify existing patient record, or click on 'New Patient' and 'New Appointment' to add new record. You can also search for a patient or an appointment by clicking on the 'Search' button.");
+		welcomeMessage.setBounds(104, 62, 428, 198);
+		display.add(welcomeMessage);
+		
+		JButton btnLogIn = new JButton("Log In");
+		btnLogIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(display);
+                frame.add(loginScreen);
+                frame.revalidate();
+                frame.repaint();
+			}
+		});
+		GridBagConstraints gbc_btnLogIn = new GridBagConstraints();
+		gbc_btnLogIn.insets = new Insets(0, 0, 5, 0);
+		gbc_btnLogIn.anchor = GridBagConstraints.NORTH;
+		gbc_btnLogIn.gridx = 0;
+		gbc_btnLogIn.gridy = 1;
+		navigation.add(btnLogIn, gbc_btnLogIn);
+		
+		JButton btnpDetail = new JButton("Patient Detail");
+		btnpDetail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(display);
+                //frame.getContentPane().add(detailScreen);
+                frame.revalidate();
+                frame.repaint();
+			}
+		});
+		GridBagConstraints gbc_btnpInfo = new GridBagConstraints();
+		gbc_btnpInfo.insets = new Insets(0, 0, 5, 0);
+		gbc_btnpInfo.gridx = 0;
+		gbc_btnpInfo.gridy = 3;
+		navigation.add(btnpDetail, gbc_btnpInfo);
+		
+		JButton btnNewPatient = new JButton("New Patient");
+		btnNewPatient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(display);
+				//frame.getContentPane().add(newPatientScreen);
+				frame.revalidate();
+				frame.repaint();
+			}
+		});
+		GridBagConstraints gbc_btnNewPatient = new GridBagConstraints();
+		gbc_btnNewPatient.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewPatient.gridx = 0;
+		gbc_btnNewPatient.gridy = 4;
+		navigation.add(btnNewPatient, gbc_btnNewPatient);
+		btnNewPatient.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.remove(display);
+				//frame.getContentPane().add(searchScreen);
+				frame.revalidate();
+				frame.repaint();
+			}
+		});
+		
+		/*JButton btnExit = new JButton("Exit");
+		btnExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		JButton btnNewAppointment = new JButton("New Appointment");
+		GridBagConstraints gbc_btnNewAppointment = new GridBagConstraints();
+		gbc_btnNewAppointment.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewAppointment.gridx = 0;
+		gbc_btnNewAppointment.gridy = 5;
+		navigation.add(btnNewAppointment, gbc_btnNewAppointment);
+		
+		JButton btnSearch = new JButton("Search");
+		GridBagConstraints gbc_btnSearch = new GridBagConstraints();
+		gbc_btnSearch.insets = new Insets(0, 0, 5, 0);
+		gbc_btnSearch.gridx = 0;
+		gbc_btnSearch.gridy = 6;
+		navigation.add(btnSearch, gbc_btnSearch);
+		GridBagConstraints gbc_btnExit = new GridBagConstraints();
+		gbc_btnExit.gridx = 0;
+		gbc_btnExit.gridy = 12;
+		navigation.add(btnExit, gbc_btnExit);
+		
+		*/
+	}
+	
+
+}

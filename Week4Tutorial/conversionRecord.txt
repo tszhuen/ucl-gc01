@@ -1,0 +1,2 @@
+From: Select Amount: null To: Selectnull
+From: USD Amount: 567.0 To: EU244.34

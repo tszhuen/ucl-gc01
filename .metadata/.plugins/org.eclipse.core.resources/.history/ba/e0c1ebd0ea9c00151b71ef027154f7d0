@@ -1,0 +1,126 @@
+package gc01.coursework;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.layout.FormSpecs;
+import javax.swing.JLabel;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.awt.event.ActionEvent;
+
+public class NewAppointment extends JPanel {
+	private JTextField date;
+	private JTextField name;
+	private JTextField doctor;
+	private JTextField medicalCondition;
+	private JTextField time;
+	Connection connect = null;
+
+	/**
+	 * Create the panel.
+	 */
+	public NewAppointment() {
+		//connect to the PatientRegistry database
+		connect = Database.dbConnector();
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setBounds(100,100,600,450);
+		setLayout(null);
+		
+		JLabel lblAppointmentDetail = new JLabel("Appointment Detail:");
+		lblAppointmentDetail.setBounds(33, 35, 127, 16);
+		add(lblAppointmentDetail);
+		
+		JLabel lblDate = new JLabel("Date:");
+		lblDate.setBounds(127, 61, 33, 16);
+		add(lblDate);
+		
+		date = new JTextField();
+		date.setBounds(164, 56, 124, 26);
+		add(date);
+		date.setColumns(10);
+		
+		JLabel lblTime = new JLabel("Time:");
+		lblTime.setBounds(299, 61, 35, 16);
+		add(lblTime);
+		
+		time = new JTextField();
+		time.setBounds(338, 56, 124, 26);
+		add(time);
+		time.setColumns(10);
+		
+		JLabel lblNameOfPatient = new JLabel("Name of Patient:");
+		lblNameOfPatient.setBounds(56, 92, 104, 16);
+		add(lblNameOfPatient);
+		
+		name = new JTextField();
+		name.setBounds(164, 87, 124, 26);
+		add(name);
+		name.setColumns(10);
+		
+		JLabel lblNameOfDoctor = new JLabel("Name of Doctor:");
+		lblNameOfDoctor.setBounds(56, 123, 104, 16);
+		add(lblNameOfDoctor);
+		
+		doctor = new JTextField();
+		doctor.setBounds(164, 118, 124, 26);
+		add(doctor);
+		doctor.setColumns(10);
+		
+		JLabel lblMedicalCondition = new JLabel("Medical Condition:");
+		lblMedicalCondition.setBounds(42, 181, 118, 16);
+		add(lblMedicalCondition);
+		
+		medicalCondition = new JTextField();
+		medicalCondition.setBounds(164, 176, 124, 26);
+		add(medicalCondition);
+		medicalCondition.setColumns(10);
+		
+		JLabel lblImage = new JLabel("Image:");
+		lblImage.setBounds(292, 181, 42, 16);
+		add(lblImage);
+		
+		JTextArea txtrComments = new JTextArea();
+		txtrComments.setBounds(33, 234, 564, 127);
+		txtrComments.setText("comments");
+		add(txtrComments);
+		
+		JButton btnSave = new JButton("save and next");
+		btnSave.setBounds(466, 392, 131, 29);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					String query = "insert into Patient (appointmentDate,appointmentTime,doctor,medicalCondition,comment) values (?,?,?,?,?)";
+					PreparedStatement pstatement = connect.prepareStatement(query);
+					pstatement.setString(1,date.getText());
+					pstatement.setString(2,time.getText());
+					pstatement.setString(3,doctor.getText());
+					pstatement.setString(4,medicalCondition.getText());
+					pstatement.setString(5,txtrComments.getText());
+					
+					removeAll();
+					revalidate();
+					repaint();
+					
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		});
+		add(btnSave);
+
+	}
+
+}

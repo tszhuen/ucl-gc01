@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+
+public class ExerciseFour {
+
+	public static void main(String[] args){
+		final String[] UNITS = {"B","KB","MB","GB"};
+		int x[] = new int [20];
+		
+		System.out.println("Enter file size in bytes");
+		Scanner scanner = new Scanner(System.in);
+		x[0] = scanner.nextInt();
+		double res = 0;
+		
+		if(x[0]>=0){
+			res = pow(x[0]);
+		    System.out.println(res);
+		}
+	}
+		
+	
+	
+	public static int pow(int x){
+		int result = x*2^(-10);
+		return result;
+	}
+
+}

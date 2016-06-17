@@ -1,0 +1,122 @@
+package gc01.coursework;
+
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.swing.JTextPane;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class Login extends JPanel {
+	private JTextField textField;
+	private JPasswordField passwordField;
+	Connection connect = null;
+	static boolean login = false;
+	//Login loginScreen = new Login();
+	//Loggedin loggedinScreen = new Loggedin(); 
+	
+
+	/**
+	 * Create the panel.
+	 */
+	public Login() {
+		
+		
+		connect = Database.dbConnector();
+		
+		setBounds(100,100,600,450);
+		setLayout(null);
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setBounds(183, 189, 81, 16);
+		add(lblUsername);
+		
+		JLabel lblPassword = new JLabel("Password:");
+		lblPassword.setBounds(183, 217, 81, 16);
+		add(lblPassword);
+		
+		textField = new JTextField();
+		textField.setBounds(303, 184, 130, 26);
+		add(textField);
+		textField.setBackground(Color.WHITE);
+		textField.setColumns(10);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(303, 212, 130, 26);
+		add(passwordField);
+		
+		JLabel lblIn = new JLabel("You are now Logged in!");
+		lblIn.setBounds(218, 169, 162, 31);
+		
+		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "You have successfully Logged out.");
+				login = false;
+				removeAll();
+				revalidate();
+				repaint();
+			}
+		});
+		btnLogOut.setBounds(241, 303, 117, 29);
+		
+		JButton btnLogIn = new JButton("Log In");
+		btnLogIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					String query = "select * from Practitioner where username=? and password=?";
+					PreparedStatement pstatement = connect.prepareStatement(query);
+					pstatement.setString(1,textField.getText());
+					pstatement.setString(2,passwordField.getText());
+					
+					ResultSet rs = pstatement.executeQuery();
+					int count = 0;
+					while(rs.next()){
+						count++;
+					}
+					if(count ==1){
+						login = true;
+						removeAll();
+						add(lblIn);
+						add(btnLogOut);
+						revalidate();
+						repaint();
+					}
+					else if(count>1){
+						JOptionPane.showMessageDialog(null, "Duplicated");
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Username and password not correct");
+					}
+					rs.close();
+					pstatement.close();
+				}
+				catch(Exception ex){
+					JOptionPane.showMessageDialog(null, ex);
+				}
+			}
+		});
+		
+		btnLogIn.setBounds(241, 303, 117, 29);
+		add(btnLogIn);
+		
+		final JTextPane txtpnS = new JTextPane();
+		txtpnS.setBounds(83, 49, 433, 72);
+		add(txtpnS);
+		txtpnS.setBackground(new Color(255, 255, 204));
+		txtpnS.setText("Welcome to the Patient Registry System!\n\nTo view the patient detail, please log in by entering your username and password below.");
+
+	}
+}

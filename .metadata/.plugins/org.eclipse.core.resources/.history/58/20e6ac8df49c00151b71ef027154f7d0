@@ -1,0 +1,94 @@
+package gc01.coursework;
+
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+
+import net.proteanit.sql.DbUtils;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+public class PatientDetail extends JPanel {
+	private JTable table;
+	Connection connect = null;
+	DetailPanel detailPane = new DetailPanel();
+
+	/**
+	 * Create the panel.
+	 */
+	public PatientDetail() {
+		//connect to the PatientRegistry database
+		connect = Database.dbConnector();
+		
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setBounds(100,100,600,450);
+		setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try{
+					int row =table.getSelectedRow();
+					String query = "select * from Patient where name = ?";
+					PreparedStatement pstatement = connect.prepareStatement(query);
+					ResultSet rs = pstatement.executeQuery();
+					
+					
+					while(rs.next()){
+						detailPane.textField.setText(rs.getString("firstName"));
+					}
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+				
+			}
+		});
+		scrollPane.setBounds(31, 20, 537, 134);
+		add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(31, 186, 537, 258);
+		add(scrollPane_1);
+		
+		JButton btnViewDetail = new JButton("View Detail");
+		btnViewDetail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				remove(scrollPane_1);
+				add(detailPane);
+				revalidate();
+				repaint();
+			}
+		});
+		btnViewDetail.setBounds(291, 155, 117, 29);
+		add(btnViewDetail);
+		
+		//load the Patient table and display on a JTable
+		try{
+			String query = "select * from Patient";
+			PreparedStatement pstatement = connect.prepareStatement(query);
+			ResultSet rs = pstatement.executeQuery();
+			//DbUtils is a class of rs2xml.jar
+			table.setModel(DbUtils.resultSetToTableModel(rs));
+			rs.close();
+			pstatement.close();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+	}
+}

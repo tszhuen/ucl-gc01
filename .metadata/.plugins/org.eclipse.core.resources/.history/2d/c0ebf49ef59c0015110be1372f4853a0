@@ -1,0 +1,193 @@
+package gc01.coursework;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+
+public class DetailPanel extends JScrollPane {
+	static JTextField textField;
+	JTextField textField_1;
+	JCheckBox chckbxMale;
+	JCheckBox chckbxFemale;
+	private JLabel lblDateOfBirth;
+	JTextField textField_2;
+	private JLabel lblAddress;
+	JTextField textField_3;
+	private JLabel lblPhoto;
+	private JLabel lblImage;
+	private JLabel label;
+	private JLabel label_1;
+	private JLabel label_2;
+	private JLabel label_3;
+	JTextField textField_4;
+	JTextField textField_5;
+	JTextField textField_6;
+	JTextField textField_7;
+	private JLabel label_4;
+	JTextField textField_8;
+	private JLabel lblAppointment;
+	private JLabel lblDate;
+	JTextField textField_9;
+	private JLabel lblTime;
+	JTextField textField_10;
+	private JLabel lblMedicalCondition;
+	JTextField textField_11;
+	private JButton btnDetail;
+
+	/**
+	 * Create the panel.
+	 */
+	public DetailPanel() {
+		setBounds(31, 171, 537, 418);
+		setLayout(null);
+		
+		JLabel lblFirstName = new JLabel("First Name:");
+		lblFirstName.setBounds(6, 11, 72, 16);
+		add(lblFirstName);
+		
+		textField = new JTextField();
+		textField.setBounds(90, 6, 130, 26);
+		add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblSurname = new JLabel("Surname:");
+		lblSurname.setBounds(6, 39, 61, 16);
+		add(lblSurname);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(90, 34, 130, 26);
+		add(textField_1);
+		textField_1.setColumns(10);
+		
+		chckbxMale = new JCheckBox("Male");
+		chckbxMale.setBounds(6, 67, 72, 23);
+		add(chckbxMale);
+		
+		chckbxFemale = new JCheckBox("Female");
+		chckbxFemale.setBounds(83, 67, 128, 23);
+		add(chckbxFemale);
+		
+		lblDateOfBirth = new JLabel("Date of Birth:");
+		lblDateOfBirth.setBounds(6, 102, 83, 16);
+		add(lblDateOfBirth);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(90, 97, 130, 26);
+		add(textField_2);
+		textField_2.setColumns(10);
+		
+		lblAddress = new JLabel("Address:");
+		lblAddress.setBounds(6, 130, 61, 16);
+		add(lblAddress);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(90, 125, 404, 26);
+		add(textField_3);
+		textField_3.setColumns(10);
+		
+		lblPhoto = new JLabel("Photo:");
+		lblPhoto.setBounds(298, 11, 61, 16);
+		add(lblPhoto);
+		
+		lblImage = new JLabel("image");
+		lblImage.setBounds(383, 6, 120, 120);
+		add(lblImage);
+		
+		label = new JLabel("City:");
+		label.setBounds(6, 158, 29, 16);
+		add(label);
+		
+		label_1 = new JLabel("Post Code:");
+		label_1.setBounds(6, 186, 67, 16);
+		add(label_1);
+		
+		label_2 = new JLabel("Country:");
+		label_2.setBounds(298, 163, 54, 16);
+		add(label_2);
+		
+		label_3 = new JLabel("Phone Number:");
+		label_3.setBounds(298, 186, 96, 16);
+		add(label_3);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(90, 153, 130, 26);
+		add(textField_4);
+		textField_4.setColumns(10);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(90, 181, 130, 26);
+		add(textField_5);
+		textField_5.setColumns(10);
+		
+		textField_6 = new JTextField();
+		textField_6.setBounds(364, 153, 130, 26);
+		add(textField_6);
+		textField_6.setColumns(10);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(406, 181, 130, 26);
+		add(textField_7);
+		textField_7.setColumns(10);
+		
+		label_4 = new JLabel("Email:");
+		label_4.setBounds(6, 214, 38, 16);
+		add(label_4);
+		
+		textField_8 = new JTextField();
+		textField_8.setBounds(90, 209, 212, 26);
+		add(textField_8);
+		textField_8.setColumns(10);
+		
+		JLabel lblImage_1 = new JLabel("image");
+		lblImage_1.setBounds(432, 257, 104, 121);
+		add(lblImage_1);
+		
+		lblAppointment = new JLabel("Appointment:");
+		lblAppointment.setBounds(6, 242, 96, 16);
+		add(lblAppointment);
+		
+		lblDate = new JLabel("Date:");
+		lblDate.setBounds(6, 270, 61, 16);
+		add(lblDate);
+		
+		textField_9 = new JTextField();
+		textField_9.setBounds(90, 265, 130, 26);
+		add(textField_9);
+		textField_9.setColumns(10);
+		
+		lblTime = new JLabel("Time:");
+		lblTime.setBounds(232, 270, 61, 16);
+		add(lblTime);
+		
+		textField_10 = new JTextField();
+		textField_10.setBounds(290, 265, 130, 26);
+		add(textField_10);
+		textField_10.setColumns(10);
+		
+		lblMedicalCondition = new JLabel("Medical condition:");
+		lblMedicalCondition.setBounds(6, 298, 120, 16);
+		add(lblMedicalCondition);
+		
+		textField_11 = new JTextField();
+		textField_11.setBounds(138, 293, 130, 26);
+		add(textField_11);
+		textField_11.setColumns(10);
+		
+		btnDetail = new JButton("detail");
+		btnDetail.setBounds(290, 293, 117, 29);
+		add(btnDetail);
+		
+		JTextArea txtrComments = new JTextArea();
+		txtrComments.setText("comments");
+		txtrComments.setBounds(6, 326, 414, 86);
+		add(txtrComments);
+		
+
+	}
+}

@@ -1,0 +1,39 @@
+import java.util.Scanner;
+
+public class ExerciseTwo {
+
+	
+	public static void main(String[] args){
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Simple calculator. Please choose an operation:\n	1. Add\n	2. Subtract\n	3. Multiply\n	4. Divide\n	5. Exit");
+		int x = scanner.nextInt();
+		 
+		if (x > 0 && x < 5){
+			System.out.println("Please give me two numbers");
+		}
+	}
+	
+	Scanner number = new Scanner(System.in);
+	int a = number.nextInt();
+	int b = number.nextInt();
+	
+	public static int add(int a, int b){
+		int result = a+b;
+		return result;
+	}
+	
+	public static int subtract(int a, int b){
+		int result = a-b;
+		return result;
+	}
+	
+	public static int multiply(int a, int b){
+		int result = a*b;
+		return result;
+	}
+	
+	public static int divide(int a, int b){
+		int result = a/b;
+		return result;
+	}
+}

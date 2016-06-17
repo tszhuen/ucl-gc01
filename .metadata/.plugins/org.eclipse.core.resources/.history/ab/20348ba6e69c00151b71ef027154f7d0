@@ -1,0 +1,14 @@
+package gc01.coursework;
+
+import javax.swing.JPanel;
+
+public class NotLoggedIn extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public NotLoggedIn() {
+
+	}
+
+}

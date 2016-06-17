@@ -1,0 +1,115 @@
+package gc01.coursework;
+
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+
+import net.proteanit.sql.DbUtils;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+
+public class PatientDetail extends JPanel {
+	private JTable table;
+	private JTable hidden;
+	Connection connect = null;
+	DetailPanel detailPane;
+
+	/**
+	 * Create the panel.
+	 */
+	public PatientDetail() {
+		//connect to the PatientRegistry database
+		connect = Database.dbConnector();
+		
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setBounds(100,100,600,450);
+		setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(31, 20, 537, 134);
+		add(scrollPane);
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try{
+					int row =table.getSelectedRow();
+					String firstName = (hidden.getModel().getValueAt(row, 0)).toString();
+					String surname = (hidden.getModel().getValueAt(row, 1)).toString();
+					String query = "select * from Patient where firstName = '"+firstName+"'and surname = '"+surname+"'";
+					PreparedStatement pstatement = connect.prepareStatement(query);
+					ResultSet rs = pstatement.executeQuery();
+					
+					
+					while(rs.next()){
+						detailPane.firstName.setText(rs.getString("firstName"));
+						detailPane.surname.setText(rs.getString("surname"));
+						detailPane.dob.setText(rs.getString("dob"));
+						detailPane.address.setText(rs.getString("address"));
+						detailPane.city.setText(rs.getString("city"));
+						detailPane.postCode.setText(rs.getString("postCode"));
+						detailPane.country.setText(rs.getString("country"));
+						detailPane.phoneNo.setText(rs.getString("phoneNo"));
+						detailPane.email.setText(rs.getString("email"));
+						detailPane.date.setText(rs.getString("appointmentDate"));
+						detailPane.time.setText(rs.getString("appointmentTime"));
+						detailPane.txtrComments.setText(rs.getString("comment"));
+						detailPane.medicalCondition.setText(rs.getString("medicalCondition"));
+						detailPane.contact.setText(rs.getString("billingName"));
+						detailPane.txtrBAddress.setText(rs.getString("billingAddress"));
+
+					}
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+				
+			}
+		});
+		scrollPane.setViewportView(table);
+		
+		detailPane = new DetailPanel();
+		add(detailPane);
+		
+		//load the Patient table and display on a JTable
+		try{
+			String query = "select firstName, surname from Patient";
+			PreparedStatement pstatement = connect.prepareStatement(query);
+			ResultSet rs = pstatement.executeQuery();
+			//DbUtils is a class of rs2xml.jar
+			table.setModel(DbUtils.resultSetToTableModel(rs));
+			rs.close();
+			pstatement.close();
+		}
+		catch(Exception ex){
+			ex.printStackTrace();
+		}
+		
+		//table which have all colomns but not displayed on the page
+		hidden = new JTable();
+			//load the Patient table and display on a JTable
+			try{
+				String query = "select * from Patient";
+				PreparedStatement pstatement = connect.prepareStatement(query);
+				ResultSet rs = pstatement.executeQuery();
+				//DbUtils is a class of rs2xml.jar
+				hidden.setModel(DbUtils.resultSetToTableModel(rs));
+				rs.close();
+				pstatement.close();
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+		
+	}
+}

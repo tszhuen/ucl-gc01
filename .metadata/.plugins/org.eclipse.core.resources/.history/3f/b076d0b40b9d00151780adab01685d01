@@ -1,0 +1,21 @@
+package gc01.coursework;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+
+public class Search extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public Search() {
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setBounds(100,100,600,450);
+		setLayout(null);
+	}
+
+}

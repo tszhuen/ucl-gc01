@@ -1,0 +1,32 @@
+package gc01.coursework;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+
+public class Loggedin extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public Loggedin() {
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setLayout(null);
+		
+		JLabel lblIn = new JLabel("You are now Logged in!");
+		lblIn.setBounds(218, 169, 162, 31);
+		add(lblIn);
+		
+		JButton btnLogOut = new JButton("Log Out");
+		btnLogOut.setBounds(241, 303, 117, 29);
+		add(btnLogOut);
+		
+		
+
+	}
+}

@@ -1,0 +1,45 @@
+package gc01.coursework;
+
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+
+
+public class PatientDetail extends JPanel {
+	private JTable table;
+	Connection connect = null;
+
+	/**
+	 * Create the panel.
+	 */
+	public PatientDetail() {
+		connect = Database.dbConnector();
+		
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setBounds(100,100,600,450);
+		setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(31, 96, 537, 321);
+		add(scrollPane);
+		
+		table = new JTable();
+		scrollPane.setViewportView(table);
+		
+		try{
+			String query = "select * from Patient";
+			PreparedStatement pstatement = connect.prepareStatement(query);
+			ResultSet rs = pstatement.executeQuery();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
+}

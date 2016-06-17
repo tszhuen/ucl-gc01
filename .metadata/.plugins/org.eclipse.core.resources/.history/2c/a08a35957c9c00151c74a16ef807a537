@@ -1,0 +1,14 @@
+package gc01.coursework;
+
+import javax.swing.JPanel;
+
+public class Loggedin extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public Loggedin() {
+
+	}
+
+}

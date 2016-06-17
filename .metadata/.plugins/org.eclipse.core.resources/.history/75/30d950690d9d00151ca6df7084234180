@@ -1,0 +1,77 @@
+package gc01.coursework;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+
+import net.proteanit.sql.DbUtils;
+
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class Search extends JPanel {
+	private JTextField search;
+	Connection connect = null;
+	private JTable hidden;
+	DetailPanel detailPane;
+
+	/**
+	 * Create the panel.
+	 */
+	public Search() {
+		//connect to the PatientRegistry database
+		connect = Database.dbConnector();
+				
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setBounds(100,100,600,450);
+		setLayout(null);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(89, 45, 122, 27);
+		add(comboBox);
+		
+		//table which have all colomns but not displayed on the page
+		hidden = new JTable();
+		
+		detailPane = new DetailPanel();
+		add(detailPane);
+		
+		search = new JTextField();
+		search.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				try{
+					String query = "select * from Patient where firstName = ?";
+					PreparedStatement pstatement = connect.prepareStatement(query);
+					pstatement.setString(1,search.getText());
+					ResultSet rs = pstatement.executeQuery();
+					
+					//load the Patient table and display on a JTable
+					hidden.setModel(DbUtils.resultSetToTableModel(rs));
+					
+					while(rs.next()){
+						
+
+					}
+					rs.close();
+					pstatement.close();
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		});
+		search.setBounds(281, 44, 178, 26);
+		add(search);
+		search.setColumns(10);
+	}
+}

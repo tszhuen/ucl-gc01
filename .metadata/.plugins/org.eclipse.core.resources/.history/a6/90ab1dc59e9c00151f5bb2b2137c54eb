@@ -1,0 +1,186 @@
+package gc01.coursework;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+
+import net.proteanit.sql.DbUtils;
+
+import com.jgoodies.forms.layout.FormSpecs;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+
+public class NewPatient extends JPanel {
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	private JTextField textField_9;
+	private JTextField textField_10;
+	Connection connect = null;
+
+	/**
+	 * Create the panel.
+	 */
+	public NewPatient() {
+		//connect to the PatientRegistry database
+		connect = Database.dbConnector();
+		
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setBounds(100,100,600,450);
+		setLayout(new FormLayout(new ColumnSpec[] {
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(52dlu;default)"),
+				FormSpecs.RELATED_GAP_COLSPEC,
+				FormSpecs.DEFAULT_COLSPEC,
+				FormSpecs.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),},
+			new RowSpec[] {
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,
+				FormSpecs.RELATED_GAP_ROWSPEC,
+				FormSpecs.DEFAULT_ROWSPEC,}));
+		
+		JLabel lblPatientDetail = new JLabel("Patient Detail:");
+		add(lblPatientDetail, "4, 4");
+		
+		JLabel lblPhoto = new JLabel("Photo:");
+		add(lblPhoto, "4, 6");
+		
+		JLabel lblFirstName = new JLabel("First Name:");
+		add(lblFirstName, "10, 6, right, default");
+		
+		textField = new JTextField();
+		add(textField, "12, 6, fill, default");
+		textField.setColumns(10);
+		
+		JLabel lblSurname = new JLabel("Surname:");
+		add(lblSurname, "10, 8, right, default");
+		
+		textField_1 = new JTextField();
+		add(textField_1, "12, 8, fill, default");
+		textField_1.setColumns(10);
+		
+		JLabel lblDateOfBirth = new JLabel("Date of Birth:");
+		add(lblDateOfBirth, "10, 10, right, default");
+		
+		textField_2 = new JTextField();
+		add(textField_2, "12, 10, fill, default");
+		textField_2.setColumns(10);
+		
+		JLabel lblAddress = new JLabel("Address:");
+		add(lblAddress, "4, 14, right, default");
+		
+		textField_3 = new JTextField();
+		add(textField_3, "6, 14, 7, 1, fill, default");
+		textField_3.setColumns(10);
+		
+		textField_4 = new JTextField();
+		add(textField_4, "6, 16, 7, 1, fill, default");
+		textField_4.setColumns(10);
+		
+		JLabel lblCity = new JLabel("City:");
+		add(lblCity, "4, 18, right, default");
+		
+		textField_6 = new JTextField();
+		add(textField_6, "6, 18, fill, default");
+		textField_6.setColumns(10);
+		
+		JLabel lblPostCode = new JLabel("Post Code:");
+		add(lblPostCode, "4, 20, right, default");
+		
+		textField_7 = new JTextField();
+		add(textField_7, "6, 20, fill, default");
+		textField_7.setColumns(10);
+		
+		JLabel lblCountry = new JLabel("Country:");
+		add(lblCountry, "4, 22, right, default");
+		
+		textField_8 = new JTextField();
+		add(textField_8, "6, 22, fill, default");
+		textField_8.setColumns(10);
+		
+		JLabel lblPhoneNumber = new JLabel("Phone Number:");
+		add(lblPhoneNumber, "4, 24, right, default");
+		
+		textField_9 = new JTextField();
+		add(textField_9, "6, 24, fill, default");
+		textField_9.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		add(lblEmail, "4, 26, right, default");
+		
+		textField_10 = new JTextField();
+		add(textField_10, "6, 26, 5, 1, fill, default");
+		textField_10.setColumns(10);
+		
+		JButton btnNewApp = new JButton("Save");
+		btnNewApp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					String query = "select * from Patient";
+					PreparedStatement pstatement = connect.prepareStatement(query);
+					ResultSet rs = pstatement.executeQuery();
+					rs.close();
+					pstatement.close();
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		});
+		add(btnNewApp, "12, 28");
+		
+	}
+
+}

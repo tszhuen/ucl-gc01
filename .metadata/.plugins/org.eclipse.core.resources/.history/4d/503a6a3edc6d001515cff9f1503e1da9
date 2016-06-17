@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+
+public class ExerciseFour {
+
+	public static void main(String[] args){
+		final String[] UNITS = {"B","KB","MB","GB"};
+		double x[] = new double [UNITS.length];
+		
+		System.out.println("Enter file size in bytes");
+		Scanner scanner = new Scanner(System.in);
+		
+		x[0] = scanner.nextInt();
+		System.out.println(x[0] +" "+ UNITS[0]);
+		
+		for(int i = 1; i < UNITS.length; i++){
+			x[i] = (x[i-1]/Math.pow(2,10));
+			System.out.println(x[i] +" "+ UNITS[i]);
+		}
+		
+		
+		scanner.close();
+	}	
+
+		
+	
+	
+}

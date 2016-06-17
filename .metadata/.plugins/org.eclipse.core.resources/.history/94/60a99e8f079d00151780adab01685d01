@@ -1,0 +1,177 @@
+package gc01.coursework;
+
+import java.awt.Color;
+import java.awt.Component;
+
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.text.JTextComponent;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.awt.event.ActionEvent;
+import javax.swing.JSeparator;
+
+public class NewAppointment extends JPanel {
+	private JTextField date;
+	private JTextField name;
+	private JTextField doctor;
+	private JTextField medicalCondition;
+	private JTextField time;
+	Connection connect = null;
+	private JTextField contact;
+	String stFirstName;
+	String stSurname;
+
+	/**
+	 * Create the panel.
+	 */
+	public NewAppointment() {
+		//connect to the PatientRegistry database
+		connect = Database.dbConnector();
+		
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setBounds(100,100,600,550);
+		setLayout(null);
+		
+		JLabel lblAppointmentDetail = new JLabel("Appointment Detail:");
+		lblAppointmentDetail.setBounds(33, 20, 127, 16);
+		add(lblAppointmentDetail);
+		
+		JLabel lblDate = new JLabel("Date:");
+		lblDate.setBounds(127, 48, 33, 16);
+		add(lblDate);
+		
+		date = new JTextField();
+		date.setBounds(163, 43, 124, 26);
+		add(date);
+		date.setColumns(10);
+		
+		JLabel lblTime = new JLabel("Time:");
+		lblTime.setBounds(355, 48, 35, 16);
+		add(lblTime);
+		
+		time = new JTextField();
+		time.setBounds(394, 43, 124, 26);
+		add(time);
+		time.setColumns(10);
+		
+		JLabel lblNameOfPatient = new JLabel("Name of Patient:");
+		lblNameOfPatient.setBounds(56, 76, 104, 16);
+		add(lblNameOfPatient);
+		
+		name = new JTextField();
+		name.setBounds(163, 71, 124, 26);
+		add(name);
+		name.setColumns(10);
+		
+		JLabel lblNameOfDoctor = new JLabel("Name of Doctor:");
+		lblNameOfDoctor.setBounds(56, 104, 104, 16);
+		add(lblNameOfDoctor);
+		
+		doctor = new JTextField();
+		doctor.setBounds(163, 99, 124, 26);
+		add(doctor);
+		doctor.setColumns(10);
+		
+		JLabel lblMedicalCondition = new JLabel("Medical Condition:");
+		lblMedicalCondition.setBounds(33, 156, 118, 16);
+		add(lblMedicalCondition);
+		
+		medicalCondition = new JTextField();
+		medicalCondition.setBounds(163, 151, 124, 26);
+		add(medicalCondition);
+		medicalCondition.setColumns(10);
+		
+		JLabel lblImage = new JLabel("Image:");
+		lblImage.setBounds(348, 156, 42, 16);
+		add(lblImage);
+		
+		JTextArea txtrComments = new JTextArea();
+		txtrComments.setBounds(33, 184, 311, 127);
+		txtrComments.setText("comments");
+		add(txtrComments);
+		
+		JLabel lblBillingInfo = new JLabel("Billing Information:");
+		lblBillingInfo.setBounds(20, 354, 138, 16);
+		
+		JLabel lblBillingName = new JLabel("Billing Contact:");
+		lblBillingName.setBounds(56, 382, 104, 16);
+		
+		contact = new JTextField();
+		contact.setBounds(163, 377, 124, 26);
+		
+		JLabel lblBillingAddress = new JLabel("Billing Address:");
+		lblBillingAddress.setBounds(56, 410, 104, 16);
+		
+		JTextArea txtrBAddress = new JTextArea();
+		txtrBAddress.setBounds(24, 431, 551, 72);
+		
+		add(txtrBAddress);
+		add(lblBillingAddress);
+		add(lblBillingName);
+		add(lblBillingInfo);
+		add(contact);
+		contact.setColumns(10);
+		
+		JButton btnSave = new JButton("Save");
+		btnSave.setBounds(142, 515, 131, 29);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					String string = name.getText();
+					String[] parts = string.split(" ");
+					stFirstName = parts[0];
+					stSurname = parts[1];
+					String query = "Update Patient set appointmentDate='"+date.getText()+"', "
+								+ "appointmentTime='"+time.getText()+"', "
+									+ "comment='"+txtrComments.getText()+"', "
+										+ "medicalCondition='"+medicalCondition.getText()+"', "
+											+ "doctor='"+doctor.getText()+"', "
+												+"billingName='"+contact.getText()+"', "
+													+ "billingAddress='"+txtrBAddress.getText()+"' where patientID = '"+stFirstName+"' and surname = '"+stSurname+"'";
+					PreparedStatement pstatement = connect.prepareStatement(query);
+					
+					pstatement.execute();
+					
+					JOptionPane.showMessageDialog(null, "Data Saved");
+					
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		});
+		add(btnSave);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(6, 132, 578, 12);
+		add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(6, 326, 578, 12);
+		add(separator_1);
+		
+		JButton btnClearForm = new JButton("Clear Form");
+		btnClearForm.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for (Component C : getComponents())
+				{    
+				    if (C instanceof JTextField || C instanceof JTextArea){
+
+				        ((JTextComponent) C).setText("");
+				}
+				
+			}
+		});
+		btnClearForm.setBounds(285, 515, 117, 29);
+		add(btnClearForm);
+	}
+}

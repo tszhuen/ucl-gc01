@@ -1,0 +1,27 @@
+
+public class ExerciseThree {
+
+	public static void main(String[] args) {
+		double numbers[] = new double [20];
+		numbers[0] = 1;
+		System.out.println(numbers[0]);
+		
+		
+		for(int i = 1; i < 20; i++){
+			numbers[i] = 2*numbers[i-1];
+			System.out.println(numbers[i]);
+		}
+		
+		double mean[] = new double [20];
+		mean[0] = 1;
+		System.out.println(mean[0]);
+		
+		for (int i = 1; i < 20; i++){
+			mean[i] = (numbers[i-1]+numbers[i+1])/2;
+			System.out.println(mean[i]);
+		}
+		mean[20] = numbers[20];
+		System.out.println(mean[20]);
+	}
+
+}

@@ -1,0 +1,16 @@
+
+public class ExerciseThree {
+
+	public static void main(String[] args) {
+		int numbers[] = new int [20];
+		numbers[0] = 1;
+		System.out.println(numbers[0]);
+		
+		for(int i = 1; i <= 20; i++){
+			numbers[i] = 2*numbers[i-1];
+			System.out.println(numbers[i]);
+		}
+
+	}
+
+}

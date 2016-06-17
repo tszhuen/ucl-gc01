@@ -1,0 +1,18 @@
+
+public class ExerciseFive {
+	public class VirtualChess {
+		public enum Chessman {
+			WHITE_KING,
+			WHITE_QUEEN,
+			WHITE_ROOK,
+			
+			}
+	
+
+			public static void main(String[] args) {
+		
+
+			}
+	}
+
+}

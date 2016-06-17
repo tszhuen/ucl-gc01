@@ -1,0 +1,269 @@
+package gc01.coursework;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.JTable;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+
+public class DetailPanel extends JPanel {
+	Connection connect = null;
+	JTextField firstName;
+	JTextField surname;
+	private JLabel lblDateOfBirth;
+	JTextField dob;
+	private JLabel lblAddress;
+	JTextField address;
+	private JLabel lblPhoto;
+	private JLabel lblImage;
+	private JLabel label;
+	private JLabel label_1;
+	private JLabel label_2;
+	private JLabel label_3;
+	JTextField city;
+	JTextField postCode;
+	JTextField country;
+	JTextField phoneNo;
+	private JLabel label_4;
+	JTextField email;
+	private JLabel lblAppointment;
+	private JLabel lblDate;
+	JTextField date;
+	private JLabel lblTime;
+	JTextField time;
+	private JLabel lblMedicalCondition;
+	JTextField medicalCondition;
+	private JButton btnDetail;
+	JTextField contact;
+	JTextArea txtrComments;
+	JTextArea txtrBAddress;
+	private JLabel lblDoctor;
+	private JTextField doctor;
+	private JLabel lblGender;
+	private JComboBox comboBox;
+
+	/**
+	 * Create the panel.
+	 */
+	public DetailPanel() {
+		
+		connect = Database.dbConnector();
+		setBounds(31, 171, 538, 552);
+		setLayout(null);
+		
+		JLabel lblFirstName = new JLabel("First Name:");
+		lblFirstName.setBounds(6, 11, 72, 16);
+		add(lblFirstName);
+		
+		firstName = new JTextField();
+		firstName.setBounds(90, 6, 130, 26);
+		add(firstName);
+		firstName.setColumns(10);
+		
+		JLabel lblSurname = new JLabel("Surname:");
+		lblSurname.setBounds(6, 39, 61, 16);
+		add(lblSurname);
+		
+		surname = new JTextField();
+		surname.setBounds(90, 34, 130, 26);
+		add(surname);
+		surname.setColumns(10);
+		
+		lblDateOfBirth = new JLabel("Date of Birth:");
+		lblDateOfBirth.setBounds(6, 97, 83, 16);
+		add(lblDateOfBirth);
+		
+		dob = new JTextField();
+		dob.setBounds(90, 92, 130, 26);
+		add(dob);
+		dob.setColumns(10);
+		
+		lblAddress = new JLabel("Address:");
+		lblAddress.setBounds(6, 130, 61, 16);
+		add(lblAddress);
+		
+		address = new JTextField();
+		address.setBounds(90, 125, 404, 26);
+		add(address);
+		address.setColumns(10);
+		
+		lblPhoto = new JLabel("Photo:");
+		lblPhoto.setBounds(298, 11, 61, 16);
+		add(lblPhoto);
+		
+		lblImage = new JLabel("image");
+		lblImage.setBounds(383, 6, 120, 120);
+		add(lblImage);
+		
+		label = new JLabel("City:");
+		label.setBounds(6, 158, 29, 16);
+		add(label);
+		
+		label_1 = new JLabel("Post Code:");
+		label_1.setBounds(6, 186, 67, 16);
+		add(label_1);
+		
+		label_2 = new JLabel("Country:");
+		label_2.setBounds(298, 163, 54, 16);
+		add(label_2);
+		
+		label_3 = new JLabel("Phone Number:");
+		label_3.setBounds(298, 186, 96, 16);
+		add(label_3);
+		
+		city = new JTextField();
+		city.setBounds(90, 153, 130, 26);
+		add(city);
+		city.setColumns(10);
+		
+		postCode = new JTextField();
+		postCode.setBounds(90, 181, 130, 26);
+		add(postCode);
+		postCode.setColumns(10);
+		
+		country = new JTextField();
+		country.setBounds(364, 153, 130, 26);
+		add(country);
+		country.setColumns(10);
+		
+		phoneNo = new JTextField();
+		phoneNo.setBounds(406, 181, 130, 26);
+		add(phoneNo);
+		phoneNo.setColumns(10);
+		
+		label_4 = new JLabel("Email:");
+		label_4.setBounds(6, 214, 38, 16);
+		add(label_4);
+		
+		email = new JTextField();
+		email.setBounds(90, 209, 212, 26);
+		add(email);
+		email.setColumns(10);
+		
+		JLabel lblImage_1 = new JLabel("image");
+		lblImage_1.setBounds(432, 326, 104, 114);
+		add(lblImage_1);
+		
+		lblAppointment = new JLabel("Appointment:");
+		lblAppointment.setBounds(6, 242, 96, 16);
+		add(lblAppointment);
+		
+		lblDate = new JLabel("Date:");
+		lblDate.setBounds(6, 270, 61, 16);
+		add(lblDate);
+		
+		date = new JTextField();
+		date.setBounds(90, 265, 130, 26);
+		add(date);
+		date.setColumns(10);
+		
+		lblTime = new JLabel("Time:");
+		lblTime.setBounds(232, 270, 61, 16);
+		add(lblTime);
+		
+		time = new JTextField();
+		time.setBounds(290, 265, 130, 26);
+		add(time);
+		time.setColumns(10);
+		
+		lblMedicalCondition = new JLabel("Medical condition:");
+		lblMedicalCondition.setBounds(6, 298, 120, 16);
+		add(lblMedicalCondition);
+		
+		medicalCondition = new JTextField();
+		medicalCondition.setBounds(126, 293, 154, 26);
+		add(medicalCondition);
+		medicalCondition.setColumns(10);
+		
+		btnDetail = new JButton("detail");
+		btnDetail.setBounds(280, 293, 72, 29);
+		add(btnDetail);
+		
+		txtrComments = new JTextArea();
+		txtrComments.setText("comments");
+		txtrComments.setBounds(6, 326, 414, 86);
+		add(txtrComments);
+		
+		JLabel lblBillingContact = new JLabel("Billing Contact:");
+		lblBillingContact.setBounds(6, 424, 96, 16);
+		add(lblBillingContact);
+		
+		contact = new JTextField();
+		contact.setBounds(138, 419, 130, 26);
+		add(contact);
+		contact.setColumns(10);
+		
+		JLabel lblBillingAddress = new JLabel("Billing Address:");
+		lblBillingAddress.setBounds(6, 447, 120, 16);
+		add(lblBillingAddress);
+		
+		txtrBAddress = new JTextArea();
+		txtrBAddress.setBounds(138, 447, 365, 70);
+		add(txtrBAddress);
+		
+		JButton btnUpdate = new JButton("Update");
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					String query = "Update Patient set firstName='"+firstName.getText()+"', firstName='"+firstName.getText()+"', "
+							+ "firstName='"+firstName.getText()+"', "
+									+ "surname='"+surname.getText()+"', "
+											+ "dob='"+dob.getText()+"', "
+													+ "address='"+address.getText()+"', "
+															+ "city='"+city.getText()+"', "
+																	+ "postCode='"+postCode.getText()+"', "
+																			+ "country='"+country.getText()+"', "
+																					+ "phoneNo='"+phoneNo.getText()+"', "
+																							+ "email='"+email.getText()+"', "
+																									+ "appointmentDate='"+date.getText()+"', "
+																											+ "appointmentTime='"+time.getText()+"', "
+																													+ "comment='"+txtrComments.getText()+"', "
+																															+ "medicalCondition='"+medicalCondition.getText()+"', "
+																																	+ "firstName='"+firstName.getText()+"', "
+																																			+ "firstName='"+firstName.getText()+"'";
+					PreparedStatement pstatement = connect.prepareStatement(query);
+					
+					pstatement.execute();
+					
+					JOptionPane.showMessageDialog(null, "Data Saved");
+					
+					pstatement.close();
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		});
+		btnUpdate.setBounds(210, 523, 117, 29);
+		add(btnUpdate);
+		
+		lblDoctor = new JLabel("Doctor:");
+		lblDoctor.setBounds(353, 298, 54, 16);
+		add(lblDoctor);
+		
+		doctor = new JTextField();
+		doctor.setBounds(406, 293, 130, 26);
+		add(doctor);
+		doctor.setColumns(10);
+		
+		lblGender = new JLabel("Gender:");
+		lblGender.setBounds(6, 67, 61, 16);
+		add(lblGender);
+		
+		comboBox = new JComboBox();
+		comboBox.setBounds(90, 63, 52, 27);
+		add(comboBox);
+		
+
+	}
+}

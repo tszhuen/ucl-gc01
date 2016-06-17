@@ -1,0 +1,40 @@
+package gc01.coursework;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class DetailPanel extends JScrollPane {
+	private JTextField textField;
+	private JTextField textField_1;
+
+	/**
+	 * Create the panel.
+	 */
+	public DetailPanel() {
+		setBounds(31, 171, 537, 418);
+		setLayout(null);
+		
+		JLabel lblFirstName = new JLabel("First Name:");
+		lblFirstName.setBounds(103, 81, 72, 16);
+		add(lblFirstName);
+		
+		textField = new JTextField();
+		textField.setBounds(187, 76, 130, 26);
+		add(textField);
+		textField.setColumns(10);
+		
+		JLabel lblSurname = new JLabel("Surname:");
+		lblSurname.setBounds(103, 106, 61, 16);
+		add(lblSurname);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(187, 101, 130, 26);
+		add(textField_1);
+		textField_1.setColumns(10);
+		
+
+	}
+}

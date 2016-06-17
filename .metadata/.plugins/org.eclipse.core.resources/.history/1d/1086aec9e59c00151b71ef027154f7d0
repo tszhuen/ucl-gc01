@@ -1,0 +1,178 @@
+package gc01.coursework;
+
+import java.awt.Color;
+
+import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.SoftBevelBorder;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+
+import net.proteanit.sql.DbUtils;
+
+import com.jgoodies.forms.layout.FormSpecs;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+import javax.swing.JCheckBox;
+
+public class NewPatient extends JPanel {
+	private JTextField firstName;
+	private JTextField surname;
+	private JTextField dob;
+	private JTextField address;
+	private JTextField city;
+	private JTextField postCode;
+	private JTextField country;
+	private JTextField phoneNo;
+	private JTextField email;
+	Connection connect = null;
+
+	/**
+	 * Create the panel.
+	 */
+	public NewPatient() {
+		//connect to the PatientRegistry database
+		connect = Database.dbConnector();
+		
+		setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(255, 255, 204));
+		setBounds(100,100,600,450);
+		setLayout(null);
+		
+		JLabel lblPatientDetail = new JLabel("Patient Detail:");
+		lblPatientDetail.setBounds(33, 35, 96, 16);
+		add(lblPatientDetail);
+		
+		JLabel lblPhoto = new JLabel("Photo:");
+		lblPhoto.setBounds(33, 61, 96, 16);
+		add(lblPhoto);
+		
+		JLabel lblFirstName = new JLabel("First Name:");
+		lblFirstName.setBounds(354, 61, 72, 16);
+		add(lblFirstName);
+		
+		firstName = new JTextField();
+		firstName.setBounds(430, 56, 130, 26);
+		add(firstName);
+		firstName.setColumns(10);
+		
+		JLabel lblSurname = new JLabel("Surname:");
+		lblSurname.setBounds(368, 92, 58, 16);
+		add(lblSurname);
+		
+		surname = new JTextField();
+		surname.setBounds(430, 87, 130, 26);
+		add(surname);
+		surname.setColumns(10);
+		
+		JLabel lblDateOfBirth = new JLabel("Date of Birth:");
+		lblDateOfBirth.setBounds(343, 123, 83, 16);
+		add(lblDateOfBirth);
+		
+		dob = new JTextField();
+		dob.setBounds(430, 118, 130, 26);
+		add(dob);
+		dob.setColumns(10);
+		
+		JLabel lblAddress = new JLabel("Address:");
+		lblAddress.setBounds(75, 212, 55, 16);
+		add(lblAddress);
+		
+		address = new JTextField();
+		address.setBounds(133, 207, 427, 26);
+		add(address);
+		address.setColumns(10);
+		
+		JLabel lblCity = new JLabel("City:");
+		lblCity.setBounds(100, 243, 29, 16);
+		add(lblCity);
+		
+		city = new JTextField();
+		city.setBounds(133, 238, 163, 26);
+		add(city);
+		city.setColumns(10);
+		
+		JLabel lblPostCode = new JLabel("Post Code:");
+		lblPostCode.setBounds(62, 274, 67, 16);
+		add(lblPostCode);
+		
+		postCode = new JTextField();
+		postCode.setBounds(133, 269, 163, 26);
+		add(postCode);
+		postCode.setColumns(10);
+		
+		JLabel lblCountry = new JLabel("Country:");
+		lblCountry.setBounds(75, 305, 54, 16);
+		add(lblCountry);
+		
+		country = new JTextField();
+		country.setBounds(133, 300, 163, 26);
+		add(country);
+		country.setColumns(10);
+		
+		JLabel lblPhoneNumber = new JLabel("Phone Number:");
+		lblPhoneNumber.setBounds(33, 336, 96, 16);
+		add(lblPhoneNumber);
+		
+		phoneNo = new JTextField();
+		phoneNo.setBounds(133, 331, 163, 26);
+		add(phoneNo);
+		phoneNo.setColumns(10);
+		
+		JLabel lblEmail = new JLabel("Email:");
+		lblEmail.setBounds(91, 367, 38, 16);
+		add(lblEmail);
+		
+		email = new JTextField();
+		email.setBounds(133, 362, 293, 26);
+		add(email);
+		email.setColumns(10);
+		
+		JButton btnNewApp = new JButton("Save");
+		btnNewApp.setBounds(430, 393, 130, 29);
+		btnNewApp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try{
+					String query = "insert into Patient (firstName,surname,gender,dob) values (?,?,?,?)";
+					PreparedStatement pstatement = connect.prepareStatement(query);
+					pstatement.setString(1,firstName.getText());
+					pstatement.setString(2,surname.getText());
+					pstatement.setString(3,dob.getText());
+					pstatement.setString(5,address.getText());
+					pstatement.setString(6,city.getText());
+					pstatement.setString(7,postCode.getText());
+					pstatement.setString(8,country.getText());
+					pstatement.setString(9,phoneNo.getText());
+					pstatement.setString(10,email.getText());
+					
+					pstatement.execute();
+					
+					JOptionPane.showMessageDialog(null, "Data Saved");
+					
+					pstatement.close();
+				}
+				catch(Exception ex){
+					ex.printStackTrace();
+				}
+			}
+		});
+		add(btnNewApp);
+		
+		JCheckBox chckbxMale = new JCheckBox("Male");
+		chckbxMale.setBounds(393, 151, 72, 23);
+		add(chckbxMale);
+		
+		JCheckBox chckbxFemale = new JCheckBox("Female");
+		chckbxFemale.setBounds(477, 151, 83, 23);
+		add(chckbxFemale);
+		
+	}
+}

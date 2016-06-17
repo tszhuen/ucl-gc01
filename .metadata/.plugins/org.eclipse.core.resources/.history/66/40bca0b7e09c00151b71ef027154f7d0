@@ -1,0 +1,17 @@
+package gc01.coursework;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+public class DetailPanel extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public DetailPanel() {
+		setBounds(31, 171, 537, 418);
+		
+
+	}
+
+}
